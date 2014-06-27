@@ -171,7 +171,7 @@ The `AccountServiceSpec` has a feature now with a `where:` body.  Modify the fea
 
 #### Lab: Spies
 The provided class `WebResourceSpec` has missing the missing implementation in order to test.   Uncomment the expected block and make the test work.
-
+	
 
 ### Spock Extension Labs
 In this lab you are going to create an extension to spock. Extensions to be used to setup preconditions for testing (like injecting objects from spring), providing special reporting, or anything you can imagine as a pre or post condition of a specation feature.   This lab is inspired by Zan Thrash who is the original author of this extension.   The extension will cause on the Mac OSX the computer to `say` something upon failure.

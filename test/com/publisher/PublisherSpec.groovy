@@ -34,13 +34,9 @@ class PublisherSpec extends Specification {
         def publisher = new Publisher()
         publisher.subscribers << subscriber1 << subscriber2
 
-        when:
-        publisher.fire("event")
+        // uncomment and the then body
+//        when:
+//        publisher.fire("event")
 
-        then:
-        1 * subscriber1.receive("event") >> { throw new Exception() }
-
-        then:
-        1 * subscriber2.receive("event")
     }
 }

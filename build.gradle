@@ -3,7 +3,8 @@ apply plugin: 'idea'
 apply plugin: "eclipse"
 
 // def spockVersion = '1.0-groovy-2.0-SNAPSHOT'
-def groovyVersion = '1.8.6'
+def spockVersion = '0.7-groovy-2.0'
+def groovyVersion = '2.1.8'
 
 repositories {
     mavenCentral()
@@ -16,11 +17,11 @@ dependencies {
     testCompile 'junit:junit:4.10'
 
 	// jar for latest spock
-    testCompile fileTree(dir: 'lib', include: '*.jar')
+/*    testCompile fileTree(dir: 'lib', include: '*.jar')*/
     testCompile 'cglib:cglib-nodep:2.2.2'               // need to mock classes
 
 
-    // testCompile "org.spockframework:spock-core:$spockVersion"
+    testCompile "org.spockframework:spock-core:$spockVersion"
     // testCompile "org.spockframework:spock-spring:$spockVersion"  //need if you are doing spring... fails without the spring dependencies
 
     testRuntime "com.h2database:h2:1.2.147"
