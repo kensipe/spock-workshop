@@ -2,12 +2,15 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: "eclipse"
 
-// def spockVersion = '1.0-groovy-2.0-SNAPSHOT'
-def spockVersion = '0.7-groovy-2.0'
+def spockVersion = '1.0-groovy-2.0-SNAPSHOT'
 def groovyVersion = '2.1.8'
 
 repositories {
     mavenCentral()
+	// sonatype repo to get spock snapshots
+	maven {
+          url "https://oss.sonatype.org/content/groups/public/"
+	}
 }
 
 dependencies {
@@ -17,7 +20,6 @@ dependencies {
     testCompile 'junit:junit:4.10'
 
 	// jar for latest spock
-/*    testCompile fileTree(dir: 'lib', include: '*.jar')*/
     testCompile 'cglib:cglib-nodep:2.2.2'               // need to mock classes
 
 
