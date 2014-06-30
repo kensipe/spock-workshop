@@ -36,7 +36,7 @@ If a gradle build has a failed test, there isn't much information provided on th
 2. Execute the Getting Started
 3. Review the dependencies for spock in the `build.gradle` file
 4. Create your workspace environment
-5. Run same test `gradle test -Dtest.single=FirstSpec`
+5. Run same test `./gradlew test -Dtest.single=FirstSpec`
 6. Test it in your editor of choice
 
 #### Lab 2: When/Then Tests
