@@ -1,11 +1,18 @@
 package com.publisher
 
+import spock.lang.Issue
+import spock.lang.Narrative
 import spock.lang.Specification
+import spock.lang.Title
 
 /**
  *
  * @author ksipe
  */
+@Title("this has a title")
+@Narrative("""
+this is a description of what this thing is suppose to do
+""")
 class PublisherSpec extends Specification {
 
     /**
