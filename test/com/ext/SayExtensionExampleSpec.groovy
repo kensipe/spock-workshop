@@ -15,6 +15,6 @@ class SayExtensionExampleSpec extends Specification {
         expect:
         Math.max(1, 4) == 4
         // todo:  uncomment the below expection to test your extension
-//        Math.max(1, 4) == 3
+        // Math.max(1, 4) == 3
     }
 }
