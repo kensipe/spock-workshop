@@ -4,7 +4,7 @@
 This is a series of comparisons of junit, groovy test cases, and [Spock](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target) presented by Ken Sipe (twitter: kensipe, kensipe@gmail.com)
 
 ## Prerequisites
-* Java 8
+* Java 8 / 11
 * Internet access (for git and gradle)
 * Gradle (but that can be bootstrapped with the gradle wrapper)
 * Git
@@ -15,8 +15,6 @@ This is a series of comparisons of junit, groovy test cases, and [Spock](http://
 * [Spock Documentation](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target)
 * Editors: [IntelliJ](https://www.jetbrains.com/idea/) or [VSCode](https://code.visualstudio.com/)
 * [Gradle Docs](https://docs.gradle.org/current/userguide/userguide.html)
-
-**note:** This has been tested with Java 8, there is a change in groovy that causes illegal access issues in Java 11 for one of the components.  This is NOT a Spock issue.  
 
 ## Getting Started
 The code provided is using [Gradle](https://gradle.org/).  So after you clone the repo, type:
@@ -206,9 +204,6 @@ Modify the `AccountServiceSpec`:
 
 ** Unroll **
 The `AccountServiceSpec` has a feature now with a `where:` body.  Modify the feature to have an `@Unroll`.  In the unroll, report the values of the variables being used in the test.
-
-#### Lab: Spies
-The provided class `WebResourceSpec` has the implementation missing in order to test.   Uncomment the expected block and make the test work.
 	
 
 ### Spock Extension Labs
