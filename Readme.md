@@ -1,26 +1,42 @@
 # Spock Testing Workshop
-## purpose
-This is a series of comparisons of junit, groovy test cases, and spock presented by Ken Sipe
 
-## getting started
-The code is provided using gradle.  So after you clone the repo, just type:
+## Purpose
+This is a series of comparisons of junit, groovy test cases, and [Spock](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target) presented by Ken Sipe (twitter: kensipe, kensipe@gmail.com)
+
+## Prerequisites
+* Java 8
+* Internet access (for git and gradle)
+* Gradle (but that can be bootstrapped with the gradle wrapper)
+* Git
+* Java / Groovy Text editor
+
+### References
+* [Labs](https://github.com/kensipe/spock-workshop)
+* [Spock Documentation](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target)
+* Editors: [IntelliJ](https://www.jetbrains.com/idea/) or [VSCode](https://code.visualstudio.com/)
+* [Gradle Docs](https://docs.gradle.org/current/userguide/userguide.html)
+
+**note:** This has been tested with Java 8, there is a change in groovy that causes illegal access issues in Java 11 for one of the components.  This is NOT a Spock issue.  
+
+## Getting Started
+The code provided is using [Gradle](https://gradle.org/).  So after you clone the repo, type:
 
 	> ./gradlew test
 or
 
 	> gradlw.bat test
 
-This will download the internet... I mean download and bootstrap gradle + all the dependencies for the project including spock.
+This will download the internet... I mean download and bootstrap gradle + all the dependencies for the project including Spock.
 
 #### setting up your IDE
-The gradle build file is configured to setup either an eclipse or IDEA project.  just type:
+The gradle build file is configured to setup either an eclipse or IDEA project, type:
 
 	> ./gradlew idea
 or 
 
 	> ./gradlew eclipse	
 
-**I have only tested this on IDEA**
+**Note: I have only tested this on IDEA**
 
 #### reviewing failures at the cmd-line
 If a gradle build has a failed test, there isn't much information provided on the cmd-line for what is going on.  The information can be view from stdio if you use the -i switch with gradle such as:
@@ -39,10 +55,11 @@ If a gradle build has a failed test, there isn't much information provided on th
 5. Run same test `./gradlew test -Dtest.single=FirstSpec`
 6. Test it in your editor of choice
 
-#### Lab 2: When/Then Tests
+#### Lab: When/Then Tests
 
 Create your first test using the hashmap example
 
+```groovy
         setup:
         def stack = new Stack()
         def elem = "Push me"
@@ -54,9 +71,11 @@ Create your first test using the hashmap example
         !stack.empty
         stack.size() == 1
         stack.peek().toString().toLowerCase() == elem.toLowerCase()
+```
 
 Lets check for if a null is thrown
 
+```groovy
 		setup:
         def map = new HashMap()
 
@@ -65,9 +84,11 @@ Lets check for if a null is thrown
 
         then:
         notThrown(NullPointerException)
+```
 
 Let's introduce `old()` with collections.
 
+```groovy
 	 def "looking at old lists"() {
         def list = [1, 2, 3]
 
@@ -78,10 +99,13 @@ Let's introduce `old()` with collections.
         list.size() == 4
         old(list.size()) == 3
     }
-Using the above as an example, create another test which has a hashmap with a key of `example` and a value of `first`.  In the when body, assign the key to the value of `second`.  Then confirm that the old value is not equal to the current value.
+```
+
+Using the above as an example, create another test which has a hashmap with a key of `example` and a value of `first`.  In the `when` body, assign the key to the value of `second`.  Then confirm that the old value is not equal to the current value.
 
 Let's introduce the `with()`.  The project has an Account class.  Lets create a test on this class and assert expectations on multiple properties using the `with()`.
 
+```groovy
 	given:
 	def account = new Account(accountNo: "123", balance: 50.0)
 	
@@ -89,15 +113,17 @@ Let's introduce the `with()`.  The project has an Account class.  Lets create a 
 	with(account) {
 		// code here
 	}
+```
 
-#### Lab Expect
+#### Lab: Expect
 	
 Create a simple test that assets with an expect that `2==Math.max(1, 2)`
 
-#### Lab Where
+#### Lab: Where
 
 Convert the following test to use a table in the where body
 
+```groovy
 	 def "computing the maximum of two numbers"() {
         expect:
         Math.max(a, b) == c
@@ -107,11 +133,13 @@ Convert the following test to use a table in the where body
         b << [1, 9]
         c << [5, 9]
     }
-    
+```
+
 Creating a custom data provider for where.   In the session we looked a sql statement which returned a tupple of data for testing which looked like `[year, interest, amt] << sql.rows("""select year, interest, amt from calcdata""")`
 
-It is possible to create your own data provider (which is help for things like csv files, or ???).  Providing a customer data provider is accomplished by simply create a class that implements `Iterator`.   Create a specification with information below.  Then make the test functional by providing the implementation details to the the `CustomDataProvider` class.
+It is possible to create your own data provider (which is great for data like csv files, etc.).  Providing a customer data provider is accomplished by simply creating a class that implements `Iterator`.   Create a specification for the information below.  Then make the test functional by providing the implementation details to the `CustomDataProvider` class.
 
+```groovy
 	def "custom data provider version"() {
         expect:
         a + b == c
@@ -119,7 +147,8 @@ It is possible to create your own data provider (which is help for things like c
         where:
         [a, b, c] << new CustomDataProvider()
     }
-    
+```
+
 #### Lab: SimpleInterestCalculator
 
 SimpleInterestCalculator is a Java class.  Lets provide tests to assert the following.
@@ -131,18 +160,23 @@ with an amount of 100 for 5 years the interest is 25.0
 #### Ham Crest
 When values are close but not exactly an asserted value, you can use HamCrest to help.  For spock there are 2 useful methods to statically import.
 
+```groovy
 	import static spock.util.matcher.HamcrestMatchers.closeTo
 	import static spock.util.matcher.HamcrestSupport.that
+```
 
 Hamcrest is use with the following notation in spock.
 
+```groovy
 	that <value>, closeTo(<target value>, 
 		<distanced from target allowed>) 
 	// example
 	that .6999999, closeTo(0.7, 0.01)
+```
+
 In this example as long as the tested value is .01 from 0.7 the test passes.
 
-The SimpleInterestCalculator has a subtract method on it.  Tests `calc.subtract(2.0, 1.1)`
+The SimpleInterestCalculator has a subtract method on it.  For this lab test `calc.subtract(2.0, 1.1)`
 
 ### Spock Mock Labs
 
@@ -150,7 +184,7 @@ The SimpleInterestCalculator has a subtract method on it.  Tests `calc.subtract(
 
 In this lab you will test the provided Publisher class.  The publisher can take any number of `Subscriber`s.   When a `fire()` event is fired on a publisher, all subscribers should receive the event.
 
-Mock 2 Subscribers and make sure that those to mocks have 1 and only 1 `receieve()` method called when `publisher.fire("event")` is invoked.
+Mock 2 Subscribers and make sure that `receieve()` method which is called when `publisher.fire("event")` is invoked, is fired 1 and only 1 time.
 
 #### Lab: Order Control of Mocks
 Using the same PublisherSpec, lets check to see if 1 mock throws an exception, if the other subscriber still receives notification.
@@ -164,13 +198,17 @@ If the test breaks, fix the application, such that the test passes.
 #### Lab: AccountService
 The `com.acme.account` package contains more of a real-world example.  It contains an `Account` domain object.  An `AccountService` which interacts with an `AccountDao`.  In this lab you want to test the interaction of the service implemention and it's interaction with the DAO layer.
 
-Modify the `AccountServiceSpec` such that the test passes.
+Modify the `AccountServiceSpec`:
+
+1. Remove the temporary `expect` body (it was provided initially so all tests would pass when you started) 
+1. Uncomment the `when` and `then` body
+1. Implement the mocks needed to make this test pass
 
 ** Unroll **
 The `AccountServiceSpec` has a feature now with a `where:` body.  Modify the feature to have an `@Unroll`.  In the unroll, report the values of the variables being used in the test.
 
 #### Lab: Spies
-The provided class `WebResourceSpec` has missing the missing implementation in order to test.   Uncomment the expected block and make the test work.
+The provided class `WebResourceSpec` has the implementation missing in order to test.   Uncomment the expected block and make the test work.
 	
 
 ### Spock Extension Labs
@@ -258,5 +296,5 @@ Change the class `SayExtensionExampleSpec` to use the new extension.  Cause an a
 	class SayExtensionExampleSpec extends Specification {
 
 ## sharing
-you are free to use this as a reference and to share with others... remember where you got it from and share the love!  that includes the awesome guys working spock... namely Peter Niederwieser (@pniederw)
+you are free to use this as a reference and to share with others... remember where you got it from and share the love!  that includes the awesome guys working Spock... namely Peter Niederwieser (@pniederw)
 
