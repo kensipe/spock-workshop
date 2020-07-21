@@ -124,10 +124,10 @@ Create a simple test that assets with an expect that `2==Math.max(1, 2)`
 Convert the following test to use a table in the where body
 
 ```groovy
-	 def "computing the maximum of two numbers"() {
+    def "computing the maximum of two numbers"() {
         expect:
         Math.max(a, b) == c
-
+        
         where:
         a << [5, 3]
         b << [1, 9]
@@ -140,10 +140,10 @@ Creating a custom data provider for where.   In the session we looked a sql stat
 It is possible to create your own data provider (which is great for data like csv files, etc.).  Providing a customer data provider is accomplished by simply creating a class that implements `Iterator`.   Create a specification for the information below.  Then make the test functional by providing the implementation details to the `CustomDataProvider` class.
 
 ```groovy
-	def "custom data provider version"() {
+    def "custom data provider version"() {
         expect:
         a + b == c
-
+        
         where:
         [a, b, c] << new CustomDataProvider()
     }
@@ -223,6 +223,7 @@ In this lab you are going to create an extension to spock. Extensions to be used
 
 #### Create Annotation
 
+```java 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target([ElementType.TYPE, ElementType.METHOD])
 	@ExtensionAnnotation(SayOnFailExtension)
@@ -231,10 +232,12 @@ In this lab you are going to create an extension to spock. Extensions to be used
     	String value() default 'Failure is not an option'
 	    String voice() default "Alex"
 	}
+```
 The annotation must have runtime retention and for this example the target will be `Type` and `Method`.
 
 #### Create the Extension Annotation
 
+```java
 	class SayOnFailExtension extends AbstractAnnotationDrivenExtension<SayOnFail> {
 
     	@Override
@@ -252,11 +255,13 @@ The annotation must have runtime retention and for this example the target will 
 	        feature.getFeatureMethod().addInterceptor(interceptor)
     	}
 	}
+```
 
 This is the main extension class.  There are 2 methods, 1 that is applied to Specifications, the other is applied to features.   The code for Specification just iterators over the specifications features.  So all the work is in the `visitFeatureAnnotation` method.  It creates the interceptor and adds it to the feature method.
 
 #### Create the Interceptor
 
+```java
 	class SayOnFailInterceptor implements IMethodInterceptor {
 
     	SayOnFail sayOnError
@@ -285,6 +290,7 @@ This is the main extension class.  There are 2 methods, 1 that is applied to Spe
 	        }
     	}
 	}
+```
 
 The intented behavior is MacOSX specific `"say -v $voiceName $sayText".execute()`.  It is the invocation of the `say` command.  Developers on other platforms should find a replacement behavior.
 
@@ -292,8 +298,10 @@ The intented behavior is MacOSX specific `"say -v $voiceName $sayText".execute()
 
 Change the class `SayExtensionExampleSpec` to use the new extension.  Cause an assertion and test the class.
 
+```java
 	@SayOnFail
 	class SayExtensionExampleSpec extends Specification {
+```
 
 ## sharing
 you are free to use this as a reference and to share with others... remember where you got it from and share the love!  that includes the awesome guys working Spock... namely Peter Niederwieser (@pniederw)
