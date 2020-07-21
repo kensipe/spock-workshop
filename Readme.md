@@ -76,7 +76,7 @@ Create your first test using the hashmap example
 Lets check for if a null is thrown
 
 ```groovy
-		setup:
+        setup:
         def map = new HashMap()
 
         when:
@@ -89,7 +89,7 @@ Lets check for if a null is thrown
 Let's introduce `old()` with collections.
 
 ```groovy
-	 def "looking at old lists"() {
+    def "looking at old lists"() {
         def list = [1, 2, 3]
 
         when:
