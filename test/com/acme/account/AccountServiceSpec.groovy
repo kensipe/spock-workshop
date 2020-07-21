@@ -19,8 +19,12 @@ class AccountServiceSpec extends Specification {
         // todo:  uncomment the below when: and provide details for the mocks
 //        when:
 //        service.deposit nmr, amt
+//
+//        then:
+        // mock stuff here
 
         // expect will be removed in the process of modifying this class
+        // todo: remove the expect body for the lab
         expect:
         1 == 1
 
