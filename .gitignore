@@ -4,5 +4,6 @@ build
 *.iws
 *.ipr
 *.iml
+.idea
 
 .DS_Store
