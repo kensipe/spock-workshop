@@ -22,7 +22,7 @@ The code provided is using [Gradle](https://gradle.org/).  So after you clone th
 	> ./gradlew test
 or
 
-	> gradlw.bat test
+	> gradlew.bat test
 
 This will download the internet... I mean download and bootstrap gradle + all the dependencies for the project including Spock.
 
