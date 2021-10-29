@@ -1,10 +1,10 @@
 # Spock Testing Workshop
 
 ## Purpose
-This is a series of comparisons of junit, groovy test cases, and [Spock](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target) presented by Ken Sipe (twitter: kensipe, kensipe@gmail.com)
+This is a series of comparisons of junit, groovy test cases, and [Spock](https://spockframework.org/spock/docs/2.0/) presented by Ken Sipe (twitter: kensipe, kensipe@gmail.com)
 
 ## Prerequisites
-* Java 8 / 11
+* Java 17
 * Internet access (for git and gradle)
 * Gradle (but that can be bootstrapped with the gradle wrapper)
 * Git
@@ -12,7 +12,7 @@ This is a series of comparisons of junit, groovy test cases, and [Spock](http://
 
 ### References
 * [Labs](https://github.com/kensipe/spock-workshop)
-* [Spock Documentation](http://spockframework.org/spock/docs/1.3/all_in_one.html#_grouping_interactions_with_same_target)
+* [Spock Documentation](https://spockframework.org/spock/docs/2.0/)
 * Editors: [IntelliJ](https://www.jetbrains.com/idea/) or [VSCode](https://code.visualstudio.com/)
 * [Gradle Docs](https://docs.gradle.org/current/userguide/userguide.html)
 
